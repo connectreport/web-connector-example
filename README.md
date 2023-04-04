@@ -10,28 +10,30 @@ A web connector is comprised of a web connector service and the web connector it
 
 The web connector service supporting a web connector should be solely accessible to ConnectReport - you should restrict it in the same way as you would a database. ConnectReport passes along user context and filter criteria to the web connector endpoints and it is the responsibility of the web connector to account for these and enforce access control.   
 
-## Supported handlers 
-### getMetadata
+## Routes 
+A web connector service responds to a documented set of API requests that come from the ConnectReport rendering engine. These routes are detailed below.  
+
+### `POST /getMetadata`
 Used to deliver metadata to the UI to support report authoring.  Receives a [User](source/models/User.ts) object indicating the current user. It should respond with a [MetaDataResponse](source/models/MetaDataResponse.ts)
 
-### getFieldValues
+### `POST /getFieldValues`
 Used to retrieve list of fields values to filter on in UI. Receives a [User](source/models/User.ts) object indicating the user running the report and a [FieldValuesRequest](source/models/FieldValuesResponse.ts) options object. It should respond with a [FieldValuesResponse](source/models/FieldValuesResponse.ts)
 
-### getTable
+### `POST /getTable`
 Used to fulfill tabular data requests. Receives a [User](source/models/User.ts) object indicating the user running the report and a [TableRequest](source/models/TableRequest.ts) options object. It should respond with a [TableResponse](source/models/TableResponse.ts)
 
-### loadVisualization
-Used to load external visualizations. Upon rendering a visualization from a web connector, ConnectReport opens a headless browser session to the loadVisualization page provided in the web connector. 
+### `GET /loadVisualization`
+Used to load external visualizations. Upon rendering a visualization associated with a web connector, ConnectReport opens a headless browser session to an HTML page hosted by the web connector that is responsible for rendering visualizations. ConnectReport passes along several query string parameters documented below which are used to identify the appropriate visualization to load and the filters that must be applied, among other metadata. To support this, the web connector service must handle a request to the path `/loadVisualization` and return an HTML response. See [example loadVisualization handler](public/loadVisualization.js).
 
-The loadVisualization page receives the following URL parameters, which can be accessed in the page's JavaScript context:
+The loadVisualization page receives the following URL parameters, which can be accessed from the page's JavaScript context:
 - docId: the ID of the web connector
 - vizId: the visualization ID configured in the template. You can use this to determine the appropriate visualization to render. 
 - selections: the effective selections for the visualization. This should be handled to appropriately filter the visualization data
 - width: the intended width of the visualization. The browser context will also have this viewport width
 - height: the intended height of the visualization. The browser context will also have this viewport width
 
-Additionally, the loadVisualization page is automatically injected with two callback functions which can be called  in the page's JavaScript context:
+Additionally, the loadVisualization page is automatically injected with two callback functions - One of these functions must be called before the visualization timeout for the visualization to succeed or fail. These functions are available in the loadVisualization page's JavaScript context:
 - completedVizLoad(): used to indicate to ConnectReport that the visualization is completely rendered
-- vizLoadError(error: string): used to ConnectReport that the visualization has encountered an error. The error argument is surfaced in the final ouput. 
+- vizLoadError(error: string): used to ConnectReport that the visualization has encountered an error. The error argument is surfaced in the final output. 
 
 The loadVisualization page is also automatically configured to attach an `X-CR-USER` header to every request it makes within the page context. This allows you to identify the user in upstream requests. Services the loadVisualization page accesses that rely on this header should be appropriately restricted. 

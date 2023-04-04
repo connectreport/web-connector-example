@@ -13,8 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Do some async work, for example, load an image into the DOM
   const img = document.createElement("img");
-  img.src = `./samples/${options.vizId}.png`;
-  img.style = "width: 100%";
+  img.src = `https://via.placeholder.com/${options.width}x${options.height}`
   container.appendChild(img);
 
   img.onload = function () {
