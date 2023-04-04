@@ -63,7 +63,6 @@ Received getTable request {
       columnIndex: 0
     }
   ],
-  filterSets: [],
   selections: [
     {
       fieldName: 'Year',
