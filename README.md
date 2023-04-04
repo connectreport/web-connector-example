@@ -40,15 +40,15 @@ The loadVisualization page is also automatically configured to attach an `X-CR-U
 
 ## Running the example
 1. Create a web connector in ConnectReport (TODO: add docs link). 
-1. Run the server 
+2. Run the server 
 ```
 git clone https://github.com/connectreport/web-connector-example.git
 cd ./web-connector-example
 npm i 
 npm run verbose 
 ```
-1. The ConnectReport backend must be able to address your web connector service instance. You can use a tool like [ngrok](https://ngrok.com/) to quickly host your web connector service instance from your local machine for development or deploy it using your preferred cloud provider. Once hosted or tunneled via ngrok, update the base URL of your web connector. 
-1. Create a template that utilized the web connector and observe the requests logged by the example connector. Example output:
+3. The ConnectReport backend must be able to address your web connector service instance. You can use a tool like [ngrok](https://ngrok.com/) to quickly host your web connector service instance from your local machine for development or deploy it using your preferred cloud provider. Once hosted or tunneled via ngrok, update the base URL of your web connector. 
+4. Create a template that utilized the web connector and observe the requests logged by the example connector. Example output:
 ```
 Received getTable request {
   fields: [
