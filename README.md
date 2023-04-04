@@ -26,11 +26,11 @@ Used to fulfill tabular data requests. Receives a [User](source/models/User.ts) 
 Used to load external visualizations. Upon rendering a visualization associated with a web connector, ConnectReport opens a headless browser session to an HTML page hosted by the web connector that is responsible for rendering visualizations. ConnectReport passes along several query string parameters documented below which are used to identify the appropriate visualization to load and the filters that must be applied, among other metadata. To support this, the web connector service must handle a request to the path `/loadVisualization` and return an HTML response. See [example loadVisualization handler](public/loadVisualization.js).
 
 The loadVisualization page receives the following URL parameters, which can be accessed from the page's JavaScript context:
-- docId: the ID of the web connector
-- vizId: the visualization ID configured in the template. You can use this to determine the appropriate visualization to render. 
-- selections: the effective selections for the visualization. This should be handled to appropriately filter the visualization data
-- width: the intended width of the visualization. The browser context will also have this viewport width
-- height: the intended height of the visualization. The browser context will also have this viewport width
+- `docId`: the ID of the web connector
+- `vizId`: the visualization ID configured in the template. You can use this to determine the appropriate visualization to render. 
+- `selections`: the effective selections for the visualization. This should be handled to appropriately filter the visualization data
+- `width`: the intended width of the visualization. The browser context will also have this viewport width
+- `height`: the intended height of the visualization. The browser context will also have this viewport width
 
 Additionally, the loadVisualization page is automatically injected with two callback functions - One of these functions must be called before the visualization timeout for the visualization to succeed or fail. These functions are available in the loadVisualization page's JavaScript context:
 - completedVizLoad(): used to indicate to ConnectReport that the visualization is completely rendered
