@@ -37,3 +37,61 @@ Additionally, the loadVisualization page is automatically injected with two call
 - vizLoadError(error: string): used to ConnectReport that the visualization has encountered an error. The error argument is surfaced in the final output. 
 
 The loadVisualization page is also automatically configured to attach an `X-CR-USER` header to every request it makes within the page context. This allows you to identify the user in upstream requests. Services the loadVisualization page accesses that rely on this header should be appropriately restricted. 
+
+## Running the example
+1. Create a web connector in ConnectReport (TODO: add docs link). 
+1. Run the server 
+```
+git clone https://github.com/connectreport/web-connector-example.git
+cd ./web-connector-example
+npm i 
+npm run verbose 
+```
+1. The ConnectReport backend must be able to address your web connector service instance. You can use a tool like [ngrok](https://ngrok.com/) to quickly host your web connector service instance from your local machine for development or deploy it using your preferred cloud provider. Once hosted or tunneled via ngrok, update the base URL of your web connector. 
+1. Create a template that utilized the web connector and observe the requests logged by the example connector. Example output:
+```
+Received getTable request {
+  fields: [
+    {
+      fieldDef: '[Total Sales]',
+      fieldType: 'measure',
+      columnIndex: 0
+    },
+    {
+      fieldDef: '[Territory]',
+      fieldType: 'dimension',
+      columnIndex: 0
+    }
+  ],
+  filterSets: [],
+  selections: [
+    {
+      fieldName: 'Year',
+      fieldDef: '[Year]',
+      fieldValues: [
+        {
+          text: 2023
+        },
+         {
+          text: 2022
+        }
+      ],
+      selectAll: false
+    }
+  ]
+} {
+  username: 'jsmith',
+  id: '848b53aa-258d-432f-82db-bbf63ee2c81b',
+  firstName: 'John',
+  lastName: 'Smith',
+  email: 'john.smith@example.com'
+}
+Received load visualization request {
+  docId: '89db07e5-b87c-4f8a-94e2-623a4355fee1',
+  vizId: 'sales-line-chart',
+  width: '686',
+  height: '298',
+  selections: '[{"fieldName":"Year","fieldDef":"[Year]","fieldValues":[{"text":2023},{"text":2022}],"selectAll":false}]'
+}
+```
+

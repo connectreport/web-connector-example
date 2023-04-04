@@ -41,7 +41,7 @@ router.post("/getFieldValues", async (req, res) => {
 
 router.get("/loadVisualization", async (req, res) => {
   const { query } = req;
-  debug("Received load viz request", util.inspect(query));
+  debug("Received load visualization request", util.inspect(query));
   res.sendFile("./public/loadVisualization.html", {
     root: process.cwd(),
   });
