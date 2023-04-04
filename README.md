@@ -69,10 +69,10 @@ Received getTable request {
       fieldDef: '[Year]',
       fieldValues: [
         {
-          text: 2023
+          text: '2023'
         },
          {
-          text: 2022
+          text: '2022'
         }
       ],
       selectAll: false
