@@ -1,9 +1,14 @@
 # Web Connector Example
 This repo provides an example web connector for use in ConnectReport 
 
-The web connector is capable of retrieving data and visualizations from nearly any data source. ConnectReport passes along metadata from the template and report task, and the web connector is responsible for fulfilling the requests. 
+The web connector is capable of retrieving data and visualizations from nearly any data source for use in ConnectReport. ConnectReport passes along metadata from the template and report task, and the web connector is responsible for fulfilling the requests. 
 
-Each web connector is intended to be a privileged service solely accessible to ConnectReport. ConnectReport passes along user context to the web connector endpoints and it is up to the web connector to account for the user context and enforce access control.   
+### Architecture 
+![ConnectReport Web connector architecture](https://user-images.githubusercontent.com/13279201/229666195-049a0c1c-809f-4ba5-97f7-01fdcf1dc19a.png)
+
+A web connector is comprised of a web connector service and the web connector itself, a point of integration between the web connector service and ConnectReport's data interface.
+
+The web connector service supporting a web connector should be solely accessible to ConnectReport - you should restrict it in the same way as you would a database. ConnectReport passes along user context and filter criteria to the web connector endpoints and it is the responsibility of the web connector to account for these and enforce access control.   
 
 ## Supported handlers 
 ### getMetadata
