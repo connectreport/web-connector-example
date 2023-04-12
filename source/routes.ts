@@ -6,6 +6,7 @@ import util from "util";
 import { debug } from "./util";
 import TableRequest from "./models/TableRequest";
 import { User } from "./models/User";
+import { WebConnectorError } from "./models/WebConnectorError";
 
 export const router = Router();
 
@@ -14,8 +15,8 @@ router.post("/getTable", async (req, res) => {
   try {
     const tableResponse = await getTableHandler(options, user);
     return res.json(tableResponse);
-  } catch (err) {
-    res.status(500).json({ error: "Unknown" });
+  } catch (err: any ) {
+    res.status(500).json({ message: err.message, disableRetry: err.disableRetry });
   }
 });
 
