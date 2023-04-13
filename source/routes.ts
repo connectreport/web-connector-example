@@ -6,7 +6,6 @@ import util from "util";
 import { debug } from "./util";
 import TableRequest from "./models/TableRequest";
 import { User } from "./models/User";
-import { WebConnectorError } from "./models/WebConnectorError";
 
 export const router = Router();
 

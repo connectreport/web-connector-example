@@ -16,7 +16,5 @@ export type TableResponse = {
     width: number;
     height: number;
   };
-  grandTotalRow?: TableRow;
-  fieldErrors?: Array<any>;
   debug?: any;
 };

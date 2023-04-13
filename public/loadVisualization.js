@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
   img.onerror = function () {
     // Handle visualization error by calling injected function vizLoadError(message)
     if (typeof window.vizLoadError === "function") {
-      window.vizLoadError("Failed due to xyz");
+      window.vizLoadError({ message: "Failed due to xyz" });
     }
   };
 });
